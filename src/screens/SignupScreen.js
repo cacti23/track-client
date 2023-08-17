@@ -1,11 +1,24 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, Button } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import React from 'react';
 
 const SignupScreen = () => {
+  const navigation = useNavigation();
+
   return (
-    <View>
+    <>
       <Text>SignupScreen</Text>
-    </View>
+      <Button
+        title='Go to Signin'
+        onPress={() => navigation.navigate('Signin')}
+      />
+
+      <Button
+        title='Go to main flow'
+        onPress={() => navigation.navigate('mainFlow')}
+      />
+    </>
   );
 };
 
