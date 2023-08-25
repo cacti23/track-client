@@ -11,40 +11,44 @@ import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailScreen from './src/screens/TrackDetailScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
 
+import { Provider as AuthProvider } from './src/context/AuthContext';
+import { navigationRef } from './src/RootNavigation';
+import { Text } from '@rneui/themed';
+
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
-function LoginFlow() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name='Signup' component={SignupScreen} />
-      <Stack.Screen name='Signin' component={SigninScreen} />
-    </Stack.Navigator>
-  );
-}
-
 function TrackListFlow() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name='TrackList' component={TrackListScreen} />
       <Stack.Screen name='TrackDetail' component={TrackDetailScreen} />
     </Stack.Navigator>
   );
 }
 
+function LoginFlow() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name='Signup' component={SignupScreen} />
+      <Stack.Screen name='Signin' component={SigninScreen} />
+    </Stack.Navigator>
+  );
+}
+
 function MainFlow() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name='TrackList' component={TrackListFlow} />
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen name='TrackListFlow' component={TrackListFlow} />
       <Tab.Screen name='TrackCreate' component={TrackCreateScreen} />
       <Tab.Screen name='Account' component={AccountScreen} />
     </Tab.Navigator>
   );
 }
 
-export default function App() {
+function App() {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name='loginFlow' component={LoginFlow} />
         <Stack.Screen name='mainFlow' component={MainFlow} />
@@ -52,3 +56,11 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  );
+};
