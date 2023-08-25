@@ -15,15 +15,16 @@ const authReducer = (state, action) => {
         errorMessage: '',
         token: action.payload
       };
-    // case 'clear_error_message':
-    //   return { ...state, errorMessage: '' };
+    case 'clear_error_message':
+      return { ...state, errorMessage: '' };
     default:
       return state;
   }
 };
 
-// const clearErrorMessage = (dispatch) =>
-//   dispatch({ type: 'clear_error_message' });
+const clearErrorMessage = (dispatch) => () => {
+  dispatch({ type: 'clear_error_message' });
+};
 
 const signup =
   (dispatch) =>
@@ -37,7 +38,6 @@ const signup =
 
       RootNavigation.navigate('mainFlow');
     } catch (error) {
-      console.log(error);
       dispatch({
         type: 'add_error',
         payload: 'Something went wrong with sign up'
@@ -57,7 +57,6 @@ const signin =
 
       RootNavigation.navigate('mainFlow');
     } catch (error) {
-      console.log(error);
       dispatch({
         type: 'add_error',
         payload: 'Something went wrong with sign in'
@@ -73,6 +72,6 @@ const signout = (dispatch) => {
 
 export const { Context, Provider } = createDataContext(
   authReducer,
-  { signup, signin, signout },
+  { signup, signin, signout, clearErrorMessage },
   { token: null, errorMessage: '' }
 );
