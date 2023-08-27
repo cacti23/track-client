@@ -10,10 +10,10 @@ import SignupScreen from './src/screens/SignupScreen';
 import TrackCreateScreen from './src/screens/TrackCreateScreen';
 import TrackDetailScreen from './src/screens/TrackDetailScreen';
 import TrackListScreen from './src/screens/TrackListScreen';
+import ResolveAuthScreen from './src/screens/ResolveAuthScreen';
 
 import { Provider as AuthProvider } from './src/context/AuthContext';
 import { navigationRef } from './src/RootNavigation';
-import { Text } from '@rneui/themed';
 
 const Stack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
@@ -50,6 +50,7 @@ function App() {
   return (
     <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name='ResolveAuth' component={ResolveAuthScreen} />
         <Stack.Screen name='loginFlow' component={LoginFlow} />
         <Stack.Screen name='mainFlow' component={MainFlow} />
       </Stack.Navigator>
